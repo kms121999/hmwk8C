@@ -7,6 +7,11 @@ WIDTH = 50
 TEXTFILE = 'short_story.txt'
 
 
+INTRO = "Welcome to the Sentence Formatter"
+
+def intro():
+    print(INTRO.center(WIDTH, ' '))
+
 
 def split():
     indexStart = 0
