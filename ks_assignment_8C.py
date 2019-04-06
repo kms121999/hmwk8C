@@ -1,36 +1,83 @@
+#Assignment:    Assignment 8C
 #
+#Program Name:  ks_assignment_8C.py
 #
+#Purpose:       To display a file, while keeping line widths within the defined
+#               limit.
 #
+#Author:        Keaton Smith
+#Course:        192CIS115.600
 #
+#Created:       April 5, 2019
 
-WIDTH = 50
-TEXTFILE = 'short_story.txt'
+# Set named constants
+WIDTH = 50  # Width that displayed lines are limited to. # characters
+TEXTFILE = 'short_story.txt' # Path to the file to be displayed
+HEADER = "Welcome to the Sentence Formatter"
 
+def main(filePath=TEXTFILE, lineWidth = WIDTH):
+    #
+    #   Function:   main
+    #
+    #   Author:     Keaton Smith
+    #   Date:       April 5, 2019
+    #   Filename:   ks_assignment_8C.py
+    #
+    #   Description:
+    #
+    #   This function will open a file and display its contents with a max
+    #   line width as defined by lineWidth.
+    #
+    #   Arguments:
+    #       str: filePath - The path of the file to be read. Default is TEXTFILE
+    #       int: lineWidth - The max line width. Default is WIDTH
+    #
+    #   Returns:
+    #       None
+    #
 
-INTRO = "Welcome to the Sentence Formatter"
+    # Display the programm header
+    print(HEADER.center(lineWidth, ' '))
+    print()
 
-def intro():
-    print(INTRO.center(WIDTH, ' '))
+    # Open the file at filePath
+    with open(filePath, 'r') as file:
+        # Go through each line of file.
+        for line in file:
 
+            # Use variables to keep track of index positions.
+            indexStart = 0
+            indexEnd = lineWidth
+            # Find the length of the line.
+            lineLength = len(line)
 
-def split():
-    indexStart = 0
-    indexEnd = WIDTH + 1
+            # While you are still whithin the length of the line.
+            while indexStart < lineLength:
+                # Flag identifying when to split the string.
+                lineSplit = False
 
-    yourString = "your string"*50
+                # If at end of string, print the rest.
+                if indexEnd >= lineLength:
+                    lineSplit = True
+                    print(line[indexStart:indexEnd].rstrip())
+                    break
 
-    while indexStart < len(yourString):
-        split = False
-        if indexEnd >= len(yourString):
-                split = True
-        while not split:
-            if yourString[indexEnd] == ' ':
-                split = True
-            else:
-                indexEnd -= 1
+                # While not ready to split...
+                while not lineSplit:
+                    # Loop until a space is found.
+                    if line[indexEnd] == ' ':
+                        # If index is at a space character
+                        lineSplit = True
+                    else:
+                        # Else shorten index
+                        indexEnd -= 1
+                        
+                # Display the string chunk
+                print(line[indexStart:indexEnd])
                 
-        print(yourString[indexStart:indexEnd])
-        indexStart = indexEnd + 1
-        indexEnd += WIDTH
-            
+                # Adjust index variables for the next chunk
+                indexStart = indexEnd + 1
+                indexEnd += lineWidth
 
+# Call main
+main()
